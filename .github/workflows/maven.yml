@@ -34,7 +34,7 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & Push Spring-Boot Docker image
       with:
-        image: praveenvenkat06/test_spring_docker
+        image: vishnutheep/spring
         tags: latest
         registry: docker.io
         dockerfile: Dockerfile
@@ -43,8 +43,10 @@ jobs:
 
     - name: Deploy compose and run in server
       run: |
-        ssh -tt -i key1.pem ubuntu@54.226.45.72
-  
+        cat {{ $secrets.TEST_KEY }} << test_key.pem
+        sudo chmod 700 test_key.pem
+        ssh -tt -i test_key.pem ubuntu@18.209.62.194
+      
         
 
       
