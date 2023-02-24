@@ -11,7 +11,7 @@ services:
       retries: 3
 
   api:
-    build: vishnutheep/spring:latest
+    image: vishnutheep/spring:latest
     ports: 
       - 8080:8080
     depends_on:
