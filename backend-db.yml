@@ -4,19 +4,10 @@ services:
     image: rasenshuriken/elasticsearch_no_security:8.6.1
     ports: 
       - 9200:9200
-    healthcheck:  
-      test: ["CMD", "curl", "-f", "http://localhost:9200"]
-      interval: 600s
-      timeout: 1000s
-      retries: 5
 
-  api:
+  app:
     image: vishnutheep/spring:latest
     ports: 
       - 8080:8080
-    depends_on:
-      es:
-        condition: service_healthy
-  
     
       
