@@ -1,3 +1,11 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Build Java with Maven
 
 on:
@@ -37,7 +45,8 @@ jobs:
       run: |
         echo "$TEST_KEY" > test_key.pem
         sudo chmod 400 test_key.pem
-        ssh -tt -i test_key.pem ubuntu@18.209.62.194
+        scp -o StrictHostKeyChecking=no -i test_key.pem backend-db.yml ubuntu@18.209.62.194:home/ubuntu
+        ssh -o StrictHostKeyChecking=no -i test_key.pem ubuntu@18.209.62.194 "docker-compose -f /home/ubuntu/backend-db.yml up"
 
       env:
         TEST_KEY: ${{ secrets.TEST_KEY }}
