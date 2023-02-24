@@ -45,7 +45,7 @@ jobs:
       run: |
         echo "$TEST_KEY" > test_key.pem
         sudo chmod 400 test_key.pem
-        scp -i test_key.pem backend-db.yml ubuntu@18.209.62.194:home/ubuntu
+        scp -o StrictHostKeyChecking=no -i test_key.pem backend-db.yml ubuntu@18.209.62.194:home/ubuntu
         ssh -o StrictHostKeyChecking=no -i test_key.pem ubuntu@18.209.62.194 "docker-compose -f /home/ubuntu/backend-db.yml up"
 
       env:
